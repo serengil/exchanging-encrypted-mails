@@ -52,7 +52,8 @@ public class MailSender {
 		Cipher publicKeyEncryption = Cipher.getInstance("RSA");
 		publicKeyEncryption.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKey)));
 		byte[] encryptedKey = publicKeyEncryption.doFinal(key);
-		String encryptedByteKey = Arrays.toString(encryptedKey);
+		//String encryptedByteKey = Arrays.toString(encryptedKey);
+		String encryptedByteKey = new String(Base64.getEncoder().encode(encryptedKey));
 		
 		//key exchange end
 		
@@ -70,7 +71,9 @@ public class MailSender {
 		byte[] encryptedContent = encryption.doFinal(plainContent);
 		
 		//return new String(encryptedContent, "ISO-8859-1");
-		return Arrays.toString(encryptedContent);
+		//return Arrays.toString(encryptedContent);
+		
+		return new String(Base64.getEncoder().encode(encryptedContent));
 		
 	}
 	
