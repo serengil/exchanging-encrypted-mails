@@ -3,6 +3,7 @@ package com.crypto.mail;
 import java.security.KeyFactory;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Properties;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -54,14 +55,15 @@ public class MailReader {
 	    	BodyPart bodyPart = multipart.getBodyPart(0);
 	    	String encryptedContent = bodyPart.getContent().toString();
 	    		    	
-	    	byte encryptedByteContent[] = toByteArray(encryptedContent);	    	
-
+	    	//byte encryptedByteContent[] = toByteArray(encryptedContent);	    	
+	    	byte encryptedByteContent[] = Base64.getDecoder().decode(encryptedContent.getBytes());
 	    	
 	    	//----------------------------------
 	    	//key exchange
 	    	
 	    	String encryptedKey = ((Multipart) message.getContent()).getBodyPart(1).getContent().toString();
-	    	byte[] encryptedByteKey = toByteArray(encryptedKey);
+	    	//byte[] encryptedByteKey = toByteArray(encryptedKey);
+		byte[] encryptedByteKey = Base64.getDecoder().decode(encryptedKey);
 	    	
 	    	Cipher publicKeyEncryption = Cipher.getInstance("RSA");
 	    	publicKeyEncryption.init(Cipher.DECRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(mySecretKey)));
@@ -90,7 +92,7 @@ public class MailReader {
 		
 	}
 	
-	public static byte[] toByteArray(String content){
+	/*public static byte[] toByteArray(String content){
 		String[] bytes = content.replace("[", "").replace("]", "").replace("\r\n","").split(", ");
     	byte byteContent[] = new byte[bytes.length];
     	for (int j = 0; j < byteContent.length; j++) {
@@ -99,6 +101,6 @@ public class MailReader {
         }
     	
     	return byteContent;
-	}
+	}*/
 
 }
