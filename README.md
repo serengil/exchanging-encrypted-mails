@@ -37,4 +37,4 @@ You should have received a copy of the GNU General Public License along with thi
 
 # License
 
-Chefboost is licensed under the MIT License - see [LICENSE](https://github.com/serengil/exchanging-encrypted-mails/blob/master/LICENSE) for more details.
+This repository is licensed under the MIT License - see [LICENSE](https://github.com/serengil/exchanging-encrypted-mails/blob/master/LICENSE) for more details.
